@@ -37,14 +37,6 @@ chars = [
 
 client = discord.Client()
 
-async def test(message):
-  counter = 0
-  tmp = await client.send_message(message.channel, 'Calculating messages...')
-  async for log in client.logs_from(message.channel, limit=100):
-      if log.author == message.author:
-          counter += 1
-
-  await client.edit_message(tmp, 'You have {} messages.'.format(counter))
 
 async def zalgo_call(text):
   intensity = 2
@@ -63,7 +55,7 @@ async def zalgo_call(text):
         intensity = 2
         await client.send_message(text.channel, '`INTENSITY CORRUPTED BY  E V I L  STRING`')
     elif not arg.startswith('.z'):
-      in_text += arg
+      in_text += ' ' + arg
 
   try:
     out = zalgo(intensity,in_text)
@@ -71,8 +63,19 @@ async def zalgo_call(text):
   except:
     await client.send_message(text.channel, zalgo() + ' oh no. something went wrong :( try reducing the intensity')
 
+
+async def get_help(msg):
+  await client.send_message(msg.author, 'You desire assistance')
+  await client.send_message(msg.author, '> `.z <text>` - Zalgoify text. Change intensity using -int=<intensity> tag, e.g .z AAAAA -int=4 or .z AAAAAAAAA (default intensity of 2)')
+  await client.send_message(msg.author, '> `ascend` - Ascend to the most surreal place in Discord.')
+
+
 async def orang(msg):
   await client.send_message(msg.channel, msg.author.mention + zalgo())
+
+
+async def ascend(msg):
+  await client.send_message(msg.channel, 'E̷͎͙̼̾̀̌ͤ̕N̵͈̣͔̜͓͉̘͍̤͗̽ͪ͗̌ͪ̆ͣ͢͠T̤͇̈̑͌͂͊̔́Eͯ͊̊ͫͯ҉̹̣̻͓̤̞͓Ŗ̛̮͚̪̣̯̏̌̆̇ ̴̷̬͉̯͔̗͍̑͌̓̉̅ͣ̎̀̃͘T̬̞̥ͨ̈́̏̃̚H̞͎̐ͩͨ̑̃́̏̎̕͜͢E̴̜̱̱͊ͨ̍ ̧̫̭ͤ̽ͭ͢͠7̧̨̜̖̞̥̹͚̰̜ͦ͒T̙̤̦̣̺̞̟̾̃̕͝H̜̝̬̰͕̦͒̔ͭ͑ͯͭͨ̎͆͠͝ ͔̤̗̝͙̞̩̭̇̓̇̀Ḑ̹͖̞̱̥̙͆̈̔̓ͥͣ͠I̴̶͎͕͖̹̮͔͙͈̓ͧ̉̈͆͞M̨̗̲̘͍̠͍͆͑͋͂̏ͬ̓̀͢E̛̝̯͙̻̎͂̓̀̑͌̓́N͔̽ͮ͂̈ͫͯ̄S̡̖̞̋ͨ͐̑͂̏͐̀I̘̬̳͇̱̿ͭ̎ͫ͂̿Ó͎̫͓͎̩ͣ̂ͩ̕Ṅ̶̺̀́ https://discord.gg/znHTJmM')
 
 
 def zalgo(intensity=2,text='AAAAAAAAAAAAAAAAAAAAA'): ## zalgoifier method
@@ -86,7 +89,9 @@ def zalgo(intensity=2,text='AAAAAAAAAAAAAAAAAAAAA'): ## zalgoifier method
 
 command_map = {
   '.z ' : zalgo_call,
-  'ORANG' : orang
+  'ORANG' : orang,
+  '.help' : get_help,
+  'ascend' : ascend
 }
 
 
