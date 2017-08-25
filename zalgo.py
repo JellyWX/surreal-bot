@@ -72,7 +72,7 @@ async def zalgo_call(text):
     await client.send_message(text.channel, zalgo() + ' oh no. something went wrong :( try reducing the intensity')
 
 async def orang(msg):
-  await client.send_message(msg.channel, msg.author.mention + zalgo()
+  await client.send_message(msg.channel, msg.author.mention + zalgo())
 
 
 def zalgo(intensity=2,text='AAAAAAAAAAAAAAAAAAAAA'): ## zalgoifier method
